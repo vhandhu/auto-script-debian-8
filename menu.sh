@@ -19,7 +19,7 @@ read -p "      Select From Options [1-10 or x] :  " Menu
 echo -e "\e[0m                                                   "
 echo -e "\e[94m ==========================================================\e[0m"
 sleep 3
-clear
+
 case $Menu in
 		1)
 		buat
@@ -46,12 +46,10 @@ case $Menu in
 		exit
 		;;
 		7)
-		clear
 		reboot
 		exit
 		;;
 		x)
-		clear
 		exit
 		;;
 	esac

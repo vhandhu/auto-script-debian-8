@@ -177,13 +177,12 @@ chmod +x screenfetch
 # download script
 cd /usr/bin
 wget -O menu "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/menu.sh"
-wget -O buat "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/buat.sh"
+wget -O buat "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/buat.sh"
 wget -O tambah "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/tambah.sh"
 wget -O hapus "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/hapus.sh"
 wget -O cek "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/cek.sh"
 wget -O member "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/member.sh"
 wget -O expired "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/expired.sh"
-wget -O reboot "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/reboot.sh"
 
 # AutoReboot Tools
 echo "10 0 * * * root /usr/local/bin/reboot" > /etc/cron.d/reboot
@@ -198,8 +197,6 @@ chmod +x hapus
 chmod +x cek
 chmod +x member
 chmod +x expired
-chmod +x reboot
-
 
 # finishing
 cd
