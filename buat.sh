@@ -28,7 +28,7 @@ read -p "         Password       :  " Pass
 read -p "         Active Days    :  " Days
 echo -e "\e[0m                                                   "
 echo -e "\e[94m ==========================================================\e[0m"
-clear
+
 sleep 1
 MYIP=$(wget -qO- ipv4.icanhazip.com)
 Today=`date +%s`
@@ -46,7 +46,7 @@ usermod -s /bin/false $User
 usermod -e  $Expired $User
 egrep "^$User" /etc/passwd >/dev/null
 echo -e "$Pass\n$Pass\n"|passwd $User &> /dev/null
-clear
+
 echo -e "\e[0m                                                           "
 echo -e "\e[94m =========================================================="
 echo -e "\e[0m                                                           "
