@@ -52,7 +52,7 @@ echo 'echo -e ""' >> .bashrc
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Dacung555/setup-ssh-dan-vpn/master/nginx.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/nginx.conf"
 mkdir -p /home/vps/public_html
 echo "<h1><center>Jajan_Online, Whats app 08994422537</center></h1>" > /home/vps/public_html/info.php
 wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/vps.conf"
@@ -128,7 +128,7 @@ socket = r:TCP_NODELAY=1
 
 
 [dropbear]
-accept = xxxxxxxxx:442
+accept = 442
 connect = 127.0.0.1:443
 
 END
