@@ -36,11 +36,12 @@ for((i=1; i<=$totalaccounts; i++ ))
                 then
                      echo " User : $username Expire tanggal : $tgl $bulantahun" >> /root/infouser.txt
                 fi
-       else
 
 # got this far, account must have expired
+else
 passwd -l $username
 userdel -r $username  &> /dev/null
+fi
 done
 
 echo -e "\e[0m                                                           "

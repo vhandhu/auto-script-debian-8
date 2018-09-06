@@ -4,7 +4,6 @@
 #   Jajan Online - Whats App 08994422537  
 # ========================================
 
-echo ""
 echo " ========================================================== "
 echo "                        Membuat Akun                        "
 echo " ========================================================== "
@@ -16,8 +15,8 @@ if [ $? -eq 0 ]; then
 	echo "Username [$username] sudah ada!"
 	exit 1
 else
-	read -p "Isikan password akun [$username]: " password
-	read -p "Berapa hari akun [$username] aktif: " AKTIF
+	read -p "     Isikan password akun [$username]: " password
+	read -p "     Berapa hari akun [$username] aktif: " AKTIF
 
 MYIP=$(wget -qO- ipv4.icanhazip.com)
 today="$(date +"%Y-%m-%d")"

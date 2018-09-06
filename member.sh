@@ -21,7 +21,7 @@ do
         Spacer="    "
         AKUN="$(echo $expired | cut -d: -f1)"
         ID="$(echo $expired | grep -v nobody | cut -d: -f3)"
-        exp="$(chage -l $Account | grep "Account expires" | awk -F": " '{print $2}')"
+        exp="$(chage -l $AKUN | grep "Account expires" | awk -F": " '{print $2}')"
         if [[ $ID -ge $UIDN ]]; then
         printf "%-26s : %5s\n" "           $AKUN"    "$exp"
         fi

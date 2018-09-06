@@ -12,13 +12,11 @@ echo -e "\e[93m            [3]  Hapus"
 echo -e "\e[93m            [4]  Cek"
 echo -e "\e[93m            [5]  Member"
 echo -e "\e[93m            [6]  Expired"
-echo -e "\e[93m            [7]  Reboot"
 echo -e "\e[93m            [x]  Exit"
 echo -e "\e[0m                                                   "
-read -p "      Select From Options [1-10 or x] :  " Menu
+read -p "                 Select From Options [1-6 or x] :  " Menu
 echo -e "\e[0m                                                   "
 echo -e "\e[94m ==========================================================\e[0m"
-sleep 3
 
 case $Menu in
 		1)
