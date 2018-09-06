@@ -121,7 +121,10 @@ ufw allow 1194/tcp
 sed -i 's|DEFAULT_INPUT_POLICY="DROP"|DEFAULT_INPUT_POLICY="ACCEPT"|' /etc/default/ufw
 sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/default/ufw
 cd /etc/ufw/
-wget "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/before.rules"
+iptables -t nat -I POSTROUTING -s 192.168.100.0/8 -o eth0 -j MASQUERADE
+iptables-save > /etc/iptables_yg_baru_dibikin.conf
+wget -O /etc/network/if-up.d/iptables "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/iptables-restore"
+chmod +x /etc/network/if-up.d/iptables
 cd
 ufw enable
 ufw status
