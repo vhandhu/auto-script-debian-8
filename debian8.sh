@@ -54,82 +54,33 @@ wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/vhandhu/au
 service nginx restart
 
 # Install OpenVPN
-apt-get -y install openvpn easy-rsa openssl iptables
-cp -r /usr/share/easy-rsa/ /etc/openvpn
-mkdir /etc/openvpn/easy-rsa/keys
-sed -i 's|export KEY_COUNTRY="US"|export KEY_COUNTRY="ID"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="Jakarta"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="Jakarta"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="CoffeeWorks"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="jajan.online@gmail.com"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="CoffeeWorks"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="Jajan.Online"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU=changeme|export KEY_OU=Jajan.Online|' /etc/openvpn/easy-rsa/vars
-
-# Create Diffie-Helman Pem
-openssl dhparam -out /etc/openvpn/dh2048.pem 2048
-
-# Create PKI
-cd /etc/openvpn/easy-rsa
-. ./vars
-./clean-all
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" --initca $*
-
-# Create key server
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" --server server
-
-# Setting KEY CN
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" client
-
-
-# cp /etc/openvpn/easy-rsa/keys/{server.crt,server.key,ca.crt} /etc/openvpn
-cd
-cp /etc/openvpn/easy-rsa/keys/server.crt /etc/openvpn/server.crt
-cp /etc/openvpn/easy-rsa/keys/server.key /etc/openvpn/server.key
-cp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn/ca.crt
-
-# Setting Server
+wget -O /etc/openvpn/openvpn.zip "https://github.com/vhandhu/auto-script-debian-8/raw/master/openvpn-key.zip"
 cd /etc/openvpn/
-wget "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/server.conf"
-
-#Create OpenVPN Config
+unzip openvpn.zip
+wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/1194-centos.conf"
+if [ "$OS" == "x86_64" ]; then
+  wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/1194-centos64.conf"
+fi
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/iptables.up.rules"
+sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
+sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
+MYIP=`curl icanhazip.com`;
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+sed -i $MYIP2 /etc/iptables.up.rules;
+sed -i 's/venet0/eth0/g' /etc/iptables.up.rules
+iptables-restore < /etc/iptables.up.rules
+sysctl -w net.ipv4.ip_forward=1
+sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
+service openvpn restart
+chkconfig openvpn on
 cd
-mkdir -p /home/vps/public_html
-cd /home/vps/public_html/
-wget "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/client.ovpn"
-sed -i $MYIP2 /home/vps/public_html/client.ovpn;
-echo '<ca>' >> /home/vps/public_html/client.ovpn
-cat /etc/openvpn/ca.crt >> /home/vps/public_html/client.ovpn
-echo '</ca>' >> /home/vps/public_html/client.ovpn
-cd /home/vps/public_html/
-tar -czf /home/vps/public_html/openvpn.tar.gz client.ovpn
-tar -czf /home/vps/public_html/client.tar.gz client.ovpn
-cd
 
-# Restart OpenVPN
-/etc/init.d/openvpn restart
-service openvpn start
-service openvpn status
+# configure openvpn client config
+cd /etc/openvpn/
+wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/openvpn.conf"
+sed -i $MYIP2 /etc/openvpn/client.ovpn;
+cp client.ovpn /home/vps/public_html/
 
-# Setting USW
-apt-get install ufw
-ufw allow ssh
-ufw allow 1194/tcp
-sed -i 's|DEFAULT_INPUT_POLICY="DROP"|DEFAULT_INPUT_POLICY="ACCEPT"|' /etc/default/ufw
-sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/default/ufw
-cd /etc/ufw/
-wget "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/before.rules"
-cd
-ufw enable
-ufw status
-ufw disable
-
-# set ipv4 forward
-echo 1 > /proc/sys/net/ipv4/ip_forward
-sed -i 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|' /etc/sysctl.conf
 
 # Install BadVPN
 cd
