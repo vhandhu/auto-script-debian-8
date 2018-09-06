@@ -4,28 +4,16 @@
 #   Jajan Online - Whats App 08994422537  
 # ========================================
 
-echo -e "\e[0m                                                   "
-echo -e "\e[94m=========================================================="
-echo -e "\e[0m                                                   "
-read -p "         Username       :  " User
-echo -e "\e[0m                                                   "
-echo -e "\e[94m==========================================================\e[0m"
-sleep 2
-egrep "^$User" /etc/passwd >/dev/null
-if [ $? -eq 0 ]; then
-	userdel -f $User
-	clear
-	echo -e "\e[0m                                                   "
-	echo -e "\e[94m=========================================================="
-	echo -e "\e[0m                                                   "
-	echo -e "\e[93m                   User Deleted                   "
-	echo -e "\e[0m                                                   "
-	echo -e "\e[94m==========================================================\e[0m"
+echo ""
+echo " ========================================================== "
+echo "                        Hapus Akun                        "
+echo " ========================================================== "
+echo ""
+read -p "         Hapus user : " username
+
+if getent passwd $Pengguna > /dev/null 2>&1; then
+        userdel $Pengguna
+        echo -e "User $Pengguna telah dihapus."
 else
-	clear
-	echo -e "\e[0m                                                   "
-	echo -e "\e[94m=========================================================="
-	echo -e "\e[0m                                                   "
-	echo -e "\e[93m                 User Doesnt Exist                "
-	echo -e "\e[0m                                                   "
-	echo -e "\e[94m==========================================================\e[0m"
+        echo -e "GAGAL: User $Pengguna tidak ada."
+fi

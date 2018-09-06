@@ -16,16 +16,17 @@ echo -e "\e[94m=========================================================="
 echo -e "\e[0m                                                   "
 echo -e "\e[93m           Username          Expired           \e[0m"
 echo " "
-while read Checklist
+while read expired
 do
         Spacer="    "
-        Account="$(echo $Checklist | cut -d: -f1)"
-        ID="$(echo $Checklist | grep -v nobody | cut -d: -f3)"
-        Exp="$(chage -l $Account | grep "Account expires" | awk -F": " '{print $2}')"
+        AKUN="$(echo $expired | cut -d: -f1)"
+        ID="$(echo $expired | grep -v nobody | cut -d: -f3)"
+        exp="$(chage -l $Account | grep "Account expires" | awk -F": " '{print $2}')"
         if [[ $ID -ge $UIDN ]]; then
-        printf "%-26s : %5s\n" "           $Account"    "$Exp"
+        printf "%-26s : %5s\n" "           $AKUN"    "$exp"
         fi
 done < /etc/passwd
+
 No_Users="$(awk -F: '$3 >= '$UIDN' && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
 echo -e "\e[0m                                                   "
 echo -e "\e[94m==========================================================\e[0m"
