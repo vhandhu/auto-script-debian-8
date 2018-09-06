@@ -65,14 +65,14 @@ service nginx restart
 apt-get -y install openvpn easy-rsa openssl iptables
 cp -r /usr/share/easy-rsa/ /etc/openvpn
 mkdir /etc/openvpn/easy-rsa/keys
-sed -i 's|export KEY_COUNTRY="US"|export KEY_COUNTRY="PH"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="Manila"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="Manila"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="CoffeeWorks"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="dreyannzoctat@gmail.com"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="CoffeeWorks"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="Dreyannz"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU=changeme|export KEY_OU=Dreyannz|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_COUNTRY="US"|export KEY_COUNTRY="ID"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="Jakarta"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="Jakarta"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="IT"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="jajanonline@gmail.com"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="IT"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="JAJAN.ONLINE"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU=changeme|export KEY_OU=JAJAN.ONLINE|' /etc/openvpn/easy-rsa/vars
 
 # Create Diffie-Helman Pem
 openssl dhparam -out /etc/openvpn/dh2048.pem 2048
@@ -81,7 +81,6 @@ openssl dhparam -out /etc/openvpn/dh2048.pem 2048
 cd /etc/openvpn/easy-rsa
 . ./vars
 ./clean-all
-./build-ca
 export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" --initca $*
 
@@ -238,12 +237,13 @@ echo "0 0 * * * root /bin/sh /usr/bin/expired" > /etc/cron.d/expired
 echo "0 0 * * * root /bin/sh /usr/bin/reboot" > /etc/cron.d/reboot
 
 # Set Permissions
-chmod +x 1
-chmod +x 2
-chmod +x 3
-chmod +x 4
-chmod +x 5
-chmod +x 6
+chmod +x menu
+chmod +x buat
+chmod +x tambah
+chmod +x hapus
+chmod +x cek
+chmod +x member
+chmod +x expired
 
 # Finishing
 cd
