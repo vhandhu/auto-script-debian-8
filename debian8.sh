@@ -38,14 +38,7 @@ echo "" >> .bashrc
 echo 'echo -e "\e[94m ========================================================== "' >> .bashrc
 echo 'echo -e "\e[94m Selamat datang di server $HOSTNAME                         "' >> .bashrc
 echo 'echo -e "\e[94m Script by Jajan Online, Whats App 08994422537              "' >> .bashrc
-echo 'echo -e "\e[94m Ketik angka pada pilihan menu dibawah ini                  "' >> .bashrc          
-echo 'echo -e "\e[94m ========================================================== "' >> .bashrc
-echo 'echo -e "\e[93m            [1]  Buat                                       "' >> .bashrc
-echo 'echo -e "\e[93m            [2]  Tambah                                     "' >> .bashrc
-echo 'echo -e "\e[93m            [3]  Hapus                                      "' >> .bashrc
-echo 'echo -e "\e[93m            [4]  Cek                                        "' >> .bashrc
-echo 'echo -e "\e[93m            [5]  Member                                     "' >> .bashrc
-echo 'echo -e "\e[93m            [6]  Expired                                    "' >> .bashrc
+echo 'echo -e "\e[94m Ketik menu untuk menampilkan daftar perintah               "' >> .bashrc          
 echo 'echo -e "\e[94m ========================================================== "' >> .bashrc
 
 # Install WebServer
@@ -128,7 +121,7 @@ ufw allow 1194/tcp
 sed -i 's|DEFAULT_INPUT_POLICY="DROP"|DEFAULT_INPUT_POLICY="ACCEPT"|' /etc/default/ufw
 sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/default/ufw
 cd /etc/ufw/
-wget "https://raw.githubusercontent.com/Dreyannz/AutoScriptVPS/master/Files/OpenVPN/before.rules"
+wget "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/before.rules"
 cd
 ufw enable
 ufw status
