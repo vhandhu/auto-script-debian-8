@@ -15,8 +15,8 @@ if [ $? -eq 0 ]; then
 	echo "Username [$username] sudah ada!"
 	exit 1
 else
-	read -p "     Isikan password akun [$username]: " password
-	read -p "     Berapa hari akun [$username] aktif: " AKTIF
+	read -p "         Isikan password akun [$username]: " password
+	read -p "         Berapa hari akun [$username] aktif: " AKTIF
 
 MYIP=$(wget -qO- ipv4.icanhazip.com)
 today="$(date +"%Y-%m-%d")"
@@ -29,23 +29,20 @@ stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print 
 openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 squidport="$(cat /etc/squid3/squid.conf | grep -i http_port | awk '{print $2}')"
 
-echo -e "\e[0m                                                           "
-echo -e "\e[94m =========================================================="
-echo -e "\e[0m                                                           "
-echo -e "\e[94m           AutoScriptVPS by JAJAN ONLINE                   "
-echo -e "\e[94m              Whats App - 08994422537                      "
-echo -e "\e[0m                                                   "
-echo -e "         Username        :  $username"
-echo -e "         Password        :  $password"
-echo -e "         Aktif Sampai    :  $expire"
-echo -e "\e[0m                                                           "	
-echo -e "         Host / IP       :  "$MYIP
-echo -e "         Port OpenSSH    :  "$opensshport
-echo -e "         Port Dropbear   :  "$dropbearport
-echo -e "         Port SSL        :  "$stunnel4port
-echo -e "         Port Squid      :  "$squidport
-echo -e "         Port OpenVPN    :  "$openvpnport
-echo -e "         OpenVPN Client  :  $MYIP/client.ovpn"
-echo -e "                                                               "
-echo -e "\e[94m ==========================================================\e[0m"
+echo -e ""
+echo -e " ===================== Informasi Akun ===================== "
+echo -e " Host           : "$MYIP                                     
+echo -e " Port OpenSSH   : "$opensshport                                        
+echo -e " Port Dropbear  : "$dropbearport                             
+echo -e " Port Squid     : "$squidport                                 
+echo -e " Config OpenVPN : $MYIP:3128/client.ovpn                    "         
+echo -e " Username       : $username                                 "
+echo -e " Password       : $password                                 "
+echo -e " ========================================================== "
+echo -e " Aktif Sampai   : $expire                                   "
+echo -e " ========================================================== "
+echo -e "                     Original Script by                     "
+echo -e "            Jajan Online - Whats App 08994422537            "
+echo -e " ========================================================== "
+echo -e ""
 fi

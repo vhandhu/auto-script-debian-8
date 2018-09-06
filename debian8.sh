@@ -34,11 +34,19 @@ apt-get update
 # Install Essential Packages
 apt-get -y install nano iptables dnsutils openvpn screen whois ngrep unzip unrar
 
-echo "clear" >> .bashrc
-echo 'echo -e "Selamat datang di server $HOSTNAME"' >> .bashrc
-echo 'echo -e "Jajan Online, Whats app 08994422537"' >> .bashrc
-echo 'echo -e "Ketik menu untuk menampilkan daftar perintah"' >> .bashrc
-echo 'echo -e ""' >> .bashrc
+echo "" >> .bashrc
+echo 'echo -e "\e[94m ========================================================== "' >> .bashrc
+echo 'echo -e "\e[94m Selamat datang di server $HOSTNAME                         "' >> .bashrc
+echo 'echo -e "\e[94m Script by Jajan Online, Whats App 08994422537              "' >> .bashrc
+echo 'echo -e "\e[94m Ketik angka pada pilihan menu dibawah ini                  "' >> .bashrc          
+echo 'echo -e "\e[94m ========================================================== "' >> .bashrc
+echo 'echo -e "\e[93m            [1]  Buat                                       "' >> .bashrc
+echo 'echo -e "\e[93m            [2]  Tambah                                     "' >> .bashrc
+echo 'echo -e "\e[93m            [3]  Hapus                                      "' >> .bashrc
+echo 'echo -e "\e[93m            [4]  Cek                                        "' >> .bashrc
+echo 'echo -e "\e[93m            [5]  Member                                     "' >> .bashrc
+echo 'echo -e "\e[93m            [6]  Expired                                    "' >> .bashrc
+echo 'echo -e "\e[94m ========================================================== "' >> .bashrc
 
 # Install WebServer
 apt-get -y install nginx
@@ -226,18 +234,16 @@ wget -O member "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/m
 wget -O expired "https://raw.githubusercontent.com/vhandhu/auto-script-debian-8/master/expired.sh"
 
 # AutoReboot Tools
-echo "10 0 * * * root /usr/local/bin/reboot" > /etc/cron.d/reboot
-echo "0 1 * * * root expired" > /etc/cron.d/expired
-echo "*0 */2 * * * root clearcache" > /etc/cron.d/clearcache
+echo "0 0 * * * root /bin/sh /usr/bin/expired" > /etc/cron.d/expired
+echo "0 0 * * * root /bin/sh /usr/bin/reboot" > /etc/cron.d/reboot
 
 # Set Permissions
-chmod +x menu
-chmod +x buat
-chmod +x tambah
-chmod +x hapus
-chmod +x cek
-chmod +x member
-chmod +x expired
+chmod +x 1
+chmod +x 2
+chmod +x 3
+chmod +x 4
+chmod +x 5
+chmod +x 6
 
 # Finishing
 cd
@@ -289,5 +295,4 @@ echo -e "\e[94m    LibXML Parser  :   {ON]                                "
 echo -e "\e[0m                                                            "
 echo -e "\e[94m =========================================================="
 echo -e "\e[0m                                                            "
-cd
 rm -f /root/debian8.sh
