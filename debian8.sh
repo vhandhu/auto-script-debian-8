@@ -166,8 +166,9 @@ service squid3 restart
 
 # Install WebMin
 cd
-wget -c http://prdownloads.sourceforge.net/webadmin/webmin_1.791_all.deb
-apt-get -y install dpkg -i webmin_1.791_all.deb 
+wget http://jaist.dl.sourceforge.net/project/webmin/webmin/1.791/webmin_1.791_all.deb
+apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+dpkg -i webmin_1.760_all.deb
 sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 service webmin restart
 
